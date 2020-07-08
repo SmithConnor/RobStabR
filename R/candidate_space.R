@@ -36,7 +36,7 @@ model_space = function(data,
   p = base::NCOL(data) - 1
   nMethods = coef + wald + dev
   # Variables
-  devQD = 0
+  devQD = base::matrix(0, nrow = B, ncol = p)
   bootstrapModels = base::rep(x = list(NA),
                               times = B)
   varNames = base::colnames(x = data)[-(p+1)]
