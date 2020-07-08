@@ -9,6 +9,7 @@
 #' @param wald
 #' @param dev
 #' @importFrom magrittr %>%
+#' @export
 #'
 #' @example
 
