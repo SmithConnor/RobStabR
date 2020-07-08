@@ -9,6 +9,7 @@
 #' @param coef
 #' @param wald
 #' @param dev
+#' @export
 #'
 #' @example
 
