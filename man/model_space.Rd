@@ -14,7 +14,8 @@ model_space(
   resid = "pearson",
   coef = TRUE,
   wald = TRUE,
-  dev = TRUE
+  dev = TRUE,
+  bootstraps = NA
 )
 }
 \arguments{

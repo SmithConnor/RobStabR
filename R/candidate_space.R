@@ -10,6 +10,7 @@
 #' @param coef
 #' @param wald
 #' @param dev
+#' @param bootstraps
 #' @importFrom magrittr %>%
 #'
 #' @example
@@ -25,16 +26,14 @@ model_space = function(data,
                        resid = "pearson",
                        coef = TRUE,
                        wald = TRUE,
-                       dev = TRUE){
+                       dev = TRUE,
+                       bootstraps = NA){
   # Parameters
   n = base::NROW(data)
   p = base::NCOL(data) - 1
   nMethods = coef + wald + dev
   # Variables
   devQD = 0
-  bootstraps = base::matrix(data = NA_integer_,
-                            nrow = B,
-                            ncol = m)
   bootstrapModels = base::rep(x = list(NA),
                               times = B)
   varNames = base::colnames(x = data)[-(p+1)]
@@ -63,12 +62,18 @@ model_space = function(data,
   residOrder = rank(x = glmFullResid)
   residStrata = ceiling(x = residOrder * nStrata / n)
   # Generate weights
+
+  if(base::all(base::is.na(bootstraps))){
+    bootstraps = base::matrix(data = NA_integer_,
+                              nrow = B,
+                              ncol = m)
   for(b in 1:B){
     for(o in 1:nStrata){
       bootstraps[b, (o - 1) * m / nStrata + (1 : (m / nStrata))] = base::sample(x = which(residStrata == o),
                                                                                 size = m / nStrata)
     }
-  }
+  }}
+
   # Fit Models
   sValues = plyr::alply(.data = bootstraps,
                         .margins = 1,
@@ -148,7 +153,14 @@ model_space = function(data,
     output[[2*nMethods + i]] = sVals[[i]]
   }
   names(output)[2*nMethods + 1:(nMethods)] = base::paste0(additional, "SVal")
+  base::colnames(devQD) = varNames
+  base::rownames(devQD) = base::paste0("B",
+                                       1:B)
   output$devQD = devQD
+
+  base::rownames(bootstraps) = base::paste0("B",
+                                            1:B)
+  output$bootsrap = bootstraps
   return(output)
 }
 

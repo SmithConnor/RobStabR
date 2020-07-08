@@ -1,0 +1,32 @@
+<!--
+%\VignetteEngine{knitr}
+%\VignetteIndexEntry{Hospital Costs Analysis}
+%\VignetteDepends{ggplot2, RobStabR}
+-->
+
+# Hospitcal Costs Analysis
+
+```{r packages}
+library("robmixglm")
+library("magrittr")
+library("dplyr")
+```
+
+
+```{r datawrangling}
+data("hospcosts", package ="robmixglm")
+
+data = hospcosts %>% 
+  dplyr::mutate(y = costs) %>% 
+  dplyr::select(-id, - costs, -los)
+```
+
+```{r}
+hospRobStab = model_space(data = data,
+                          B = 100,
+                          m = 50,
+                          nStrata = 5,
+                          family = Gamma(link = log))
+```
+
+
