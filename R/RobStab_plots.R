@@ -2,6 +2,7 @@
 #'
 #' @importFrom magrittr %>%
 #' @importFrom ggplot2 ggplot
+#' @export
 
 sMPP = function(robStab){
   output = list()
@@ -56,6 +57,7 @@ h_mat = function(vector){
 
 ###
 
+
 sMPPplot = function(hMat){
   df = hMat %>%
     reshape2::melt()
@@ -79,6 +81,9 @@ sMPPplot = function(hMat){
 }
 
 ###
+
+#' @export
+#'
 
 sVIP = function(robStab){
   newRobStab = list(robStab[[7]],

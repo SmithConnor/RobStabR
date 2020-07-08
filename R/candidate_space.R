@@ -12,6 +12,7 @@
 #' @param dev
 #' @param bootstraps
 #' @importFrom magrittr %>%
+#' @export
 #'
 #' @example
 

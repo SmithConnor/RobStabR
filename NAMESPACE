@@ -2,6 +2,9 @@
 
 export(expit)
 export(logit)
+export(model_space)
+export(sMPP)
+export(sVIP)
 export(s_values)
 importFrom(ggplot2,ggplot)
 importFrom(magrittr,"%>%")

@@ -10,11 +10,15 @@
 library("robmixglm")
 library("magrittr")
 library("dplyr")
+
+library(devtools)
+install_github("SmithConnor/RobStabR")
+library("RobStabR")
 ```
 
 
 ```{r datawrangling}
-data("hospcosts", package ="robmixglm")
+utils::data("hospcosts", package ="robmixglm")
 
 data = hospcosts %>% 
   dplyr::mutate(y = costs) %>% 
@@ -24,26 +28,56 @@ data = hospcosts %>%
 ## Robust Plots
 
 ```{r fitRobStab}
-resamplePaper = NA
+paperRobStab = readRDS("./../manuscript/hosp_robust_RobStab.rds") # Analysis done for the manuscript
+
+resamplePaper = paperRobStab$bootstraps
 
 hospRobStab = model_space(data = data,
                           B = 100,
                           m = 50,
                           nStrata = 5,
-                          family = Gamma(link = log))
+                          family = Gamma(link = log),
+                          tcc = 1.5,
+                          bootstraps = resamplePaper)
 ```
 
-```{r sVIP}
+```{r rsVIP}
 hospMPP = sMPP(robStab = hospRobStab)
 hospMPP$plots$dev
 
 ```
 
-```{r sMPP}
+```{r rsMPP}
 hospVIP = sVIP(robStab = hospRobStab)
 hospVIP$plots$dev
 
 ```
 
 ## Non-Robust Plots
+
+
+```{r fitRobStabNon}
+paperRobStab2 = readRDS("./../manuscript/hosp_RobStab.rds") # Analysis done for the manuscript
+
+resamplePaper2 = paperRobStab2$bootstraps
+
+hospRobStabNon = model_space_non(data = data,
+                          B = 100,
+                          m = 50,
+                          nStrata = 5,
+                          family = Gamma(link = log),
+                          bootstraps = resamplePaper2)
+```
+
+```{r sVIP}
+hospMPP = sMPP(robStab = hospRobStabNon)
+hospMPP$plots$dev
+
+```
+
+```{r sMPP}
+hospVIP = sVIP(robStab = hospRobStabNon)
+hospVIP$plots$dev
+
+```
 
