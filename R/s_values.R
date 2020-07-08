@@ -22,26 +22,34 @@ s_values = function(weights,
                     wald,
                     dev,
                     tcc){
+  tictoc::tic()
   glmBoot = robustbase::glmrob(formula = y~.,
                                data = data,
                                subset = weights,
                                family = family,
                                control = robustbase::glmrobMqle.control(tcc = tcc, maxit = 1000))
   glmBootSummary = base::summary(glmBoot)
+  modelTime = tictoc::toc(quiet = TRUE)
   sVal = base::matrix(data = NA_integer_,
                       nrow = 3,
                       ncol = p)
   QD = base::rep(x = NA,
                  times = p)
+  timing = base::rep(x = NA,
+                     times = 3)
+  base::names(timing) = c("coef", "wald", "dev")
   colnames(sVal) = base::names(glmBoot$coefficients[-1])
   rownames(sVal) = c("Coef", "Wald", "Dev")
   if(coef == TRUE){
     sVal[1,] = glmBootSummary$coefficients[-1, 1]
+    timing[1] = modelTime$toc - modelTime$tic
   }
   if(wald == TRUE){
     sVal[2,] = glmBootSummary$coefficients[-1, 3]
+    timing[2]= modelTime$toc - modelTime$tic
   }
   if(dev == TRUE){
+    tictoc::tic()
     for(i in 1:p){
       variables = utils::head(x = names(data),
                               n = p)
@@ -71,8 +79,11 @@ s_values = function(weights,
       sVal[3,i] = anovaDev$fit$Test.Stat[2]
       QD[i] = anovaDev$QD
     }
+    devTime = tictoc::toc(quiet = TRUE)
+    timing[3] = devTime$toc - devTime$tic
   }
-  return(list(sVal, QD))
+
+  return(list(sVal, QD, timing))
 }
 
 #####

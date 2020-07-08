@@ -30,6 +30,7 @@ model_space = function(data,
                        dev = TRUE,
                        bootstraps = NA,
                        tcc){
+  tictoc::tic()
   # Parameters
   n = base::NROW(data)
   p = base::NCOL(data) - 1
@@ -75,7 +76,8 @@ model_space = function(data,
                                                                                 size = m / nStrata)
     }
   }}
-
+  endStart = tictoc::toc(quiet = TRUE)
+  timing = endStart$toc - endStart$tic
   # Fit Models
   sValues = plyr::alply(.data = bootstraps,
                         .margins = 1,
@@ -89,7 +91,10 @@ model_space = function(data,
                         dev = dev,
                         .parallel = FALSE,
                         tcc = tcc)
+  timing3 = base::rep(0,
+                      times = 3)
   if(coef == TRUE){
+    tictoc::tic()
     coefPath = lapply(X = sValues,
                       FUN = solution_path,
                       row = 1)
@@ -103,8 +108,11 @@ model_space = function(data,
     }
     base::colnames(sVals$coef) = varNames
     base::rownames(sVals$coef) = base::paste0("Bootstrap",1:B)
+    coefTime = tictoc::toc(quiet = TRUE)
+    timing3[1] = coefTime$toc - coefTime$tic
   }
   if(wald == TRUE){
+    tictoc::tic()
     waldPath = lapply(X = sValues,
                       FUN = solution_path,
                       row = 2)
@@ -118,8 +126,11 @@ model_space = function(data,
     }
     base::colnames(sVals$wald) = varNames
     base::rownames(sVals$wald) = base::paste0("Bootstrap",1:B)
+    waldTime = tictoc::toc(quiet = TRUE)
+    timing3[2] = waldTime$toc - waldTime$tic
   }
   if(dev == TRUE){
+    tictoc::tic()
     devQD = base::matrix(data = NA,
                          nrow = B,
                          ncol = p)
@@ -137,6 +148,8 @@ model_space = function(data,
     }
     base::colnames(sVals$dev) = varNames
     base::rownames(sVals$dev) = base::paste0("Bootstrap",1:B)
+    devTime = tictoc::toc(quiet = TRUE)
+    timing3[3] = devTime$toc - devTime$tic
   }
 
   countModels = count_models(output,
@@ -146,6 +159,15 @@ model_space = function(data,
                              data = data,
                              family = family,
                              tcc = tcc)
+
+  timing2 = base::rep(0,
+                      times = 3)
+  for(i in 1:base::length(output)){
+    timing2[i] = output[[i]]$timing
+    output[[i]] = output[[i]]$candidateSpace
+  }
+  base::names(output) = c("coef", "wald", "dev")[c(coef,wald,dev)]
+
   additional = countModels %>%
     base::names()
   addition = base::paste0(additional, "Count")
@@ -166,6 +188,17 @@ model_space = function(data,
                                             1:B)
   output$bootsrap = bootstraps
   output$varNames = varNames
+
+  finalTime = base::rep(0,
+                        times = 3)
+  for(b in 1:B){
+    finalTime = finalTime + sValues[[b]][[3]]
+  }
+
+  finalTime = finalTime + timing2 + timing3 + timing
+
+  output$time = finalTime
+
   return(output)
 }
 
@@ -248,10 +281,10 @@ check_model_space = function(list,
                         family = family,
                         tcc = tcc)
   for( i in 1:length(output)){
-    output[[i]] = plyr::ldply (output[[i]],
+    output[[i]]$candidateSpace = plyr::ldply (output[[i]]$candidateSpace,
                                base::data.frame,
                                stringsAsFactors = FALSE)
-    rownames(output[[i]]) = paste0("Model ",1:NROW(output[[i]]))
+    rownames(output[[i]]$candidateSpace) = paste0("Model ",1:NROW(output[[i]]$candidateSpace))
   }
   #  output = base::lapply(X = output,
   #                        FUN = best_model)

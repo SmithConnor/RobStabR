@@ -12,7 +12,7 @@ library("magrittr")
 library("dplyr")
 
 library(devtools)
-install_github("SmithConnor/RobStabR")
+#install_github("SmithConnor/RobStabR")
 library("RobStabR")
 ```
 
@@ -39,6 +39,17 @@ hospRobStab = model_space(data = data,
                           family = Gamma(link = log),
                           tcc = 1.5,
                           bootstraps = resamplePaper)
+
+
+tic()
+hospRobStab = model_space(data = data,
+                          B = 100,
+                          m = 50,
+                          nStrata = 5,
+                          family = Gamma(link = log),
+                          tcc = 1.5)
+b = toc()
+b$toc-b$tic
 ```
 
 ```{r rsVIP}

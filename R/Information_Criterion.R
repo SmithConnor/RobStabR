@@ -46,10 +46,15 @@ matrix_IC = function(matrix,
                      data,
                      family,
                      tcc){
-  base::apply(X = matrix,
+  tictoc::tic()
+  output = base::apply(X = matrix,
               MARGIN = 1,
               FUN = IC,
               data = data,
               family = family,
               tcc = tcc)
+  endTime = tictoc::toc(quiet = TRUE)
+  return(base::list(candidateSpace = output,
+         timing = endTime$toc - endTime$tic))
+
 }
