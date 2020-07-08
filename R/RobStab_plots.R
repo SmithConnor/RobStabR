@@ -87,14 +87,6 @@ sVIP = function(robStab){
   gMat = newRobStab %>%
     base::lapply(., g_mat)
 
-  p = base::NCOL(newRobStab[[1]])
-
-  gMatrix = base::matrix(data = NA_real_,
-                         nrow = p,
-                         ncol = p + 1)
-
-  df$Dimension =  factor(df$Dimension, levels = colnames(gMatrix))
-
   output = gMat
 
   base::names(output) = c("coef",

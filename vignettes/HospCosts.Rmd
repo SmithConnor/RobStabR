@@ -21,6 +21,8 @@ data = hospcosts %>%
   dplyr::select(-id, - costs, -los)
 ```
 
+## Robust Plots
+
 ```{r fitRobStab}
 resamplePaper = NA
 
@@ -42,4 +44,6 @@ hospVIP = sVIP(robStab = hospRobStab)
 hospVIP$plots$dev
 
 ```
+
+## Non-Robust Plots
 
