@@ -43,6 +43,7 @@ best_robust = function(RSSM,
 #' @param anovaTest
 #' @param pVal
 #' @importFrom magrittr %>%
+#' @import formula.tools
 
 step_glmrob = function(data,
                        family,

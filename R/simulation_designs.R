@@ -3,8 +3,8 @@ paper_results_simple = function(K = 100,
                                 n,
                                 p,
                                 beta,
-                                name,
-                                family = poisson(link = "log")){
+                                family = poisson(link = "log"),
+                                tcc){
   yFinal = base::matrix(data = NA_integer_,
                         ncol = K,
                         nrow = n)
@@ -35,7 +35,7 @@ paper_results_simple = function(K = 100,
     y = stats::rpois(n = n, lambda = mu)
     yFinal[,i] = y
     data = data.frame(x,y)
-    tic()
+    tictoc::tic()
     RobStab[[i]] = model_space(data = data,
                             B = 100,
                             m = n/2,
@@ -45,48 +45,51 @@ paper_results_simple = function(K = 100,
                             resid = "pearson",
                             coef = TRUE,
                             wald = TRUE,
-                            dev = TRUE)
-    t1 = toc()
+                            dev = TRUE,
+                            tcc = tcc)
+    t1 = tictoc::toc(quiet = TRUE)
     time[i,1] = t1$toc - t1$tic
     runs$RobStab = RobStab[[i]]
-    tic()
+    tictoc::tic()
     stepGLM[[i]] = step_glmrob(data = data,
-                               family = family)
-    t2 = toc()
+                               family = family,
+                               tcc = tcc)
+    t2 = tictoc::toc(quiet = TRUE)
     time[i,2] = t2$toc - t2$tic
     runs$stepQD = stepGLM[[i]]
-    tic()
+    tictoc::tic()
     stepAIC[[i]] = step_ic(data = data,
                            family = family,
                            k = 2)
-    t3 = toc()
+    t3 = tictoc::toc(quiet = TRUE)
     time[i,3] = t3$toc - t3$tic
     runs$stepAIC = stepAIC[[i]]
-    tic()
+    tictoc::tic()
     stepBIC[[i]] = step_ic(data = data,
                            family = family,
                            k = log(n))
-    t4 = toc()
+    t4 = tictoc::toc(quiet = TRUE)
     time[i,4] = t4$toc - t4$tic
     runs$stepBIC = stepBIC[[i]]
-    tic()
+    tictoc::tic()
     bestAIC[[i]] = bestglm_ic(data = data,
                               family = family,
                               IC = "AIC")
-    t5 = toc()
+    t5 = tictoc::toc(quiet = TRUE)
     time[i,5] = t5$toc - t5$tic
     runs$bestAIC = bestAIC[[i]]
-    tic()
+    tictoc::tic()
     bestBIC[[i]] = bestglm_ic(data = data,
                               family = family,
                               IC = "BIC")
-    t6 = toc()
+    t6 = tictoc::toc(quiet = TRUE)
     time[i,6] = t6$toc - t6$tic
     runs$bestBIC = bestBIC[[i]]
-    tic()
+    tictoc::tic()
     exhaustRDBC[[i]] = exhaustive_RDBC(data = data,
-                                       family = family)
-    t7 = toc()
+                                       family = family,
+                                       tcc = tcc)
+    t7 = tictoc::toc(quiet = TRUE)
     time[i,7] = t7$toc - t7$tic
     runs$exhaustRDBC = exhaustRDBC[[i]]
     runs$time = time[i,]
