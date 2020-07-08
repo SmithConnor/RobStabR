@@ -80,7 +80,7 @@ s_values = function(weights,
       QD[i] = anovaDev$QD
     }
     devTime = tictoc::toc(quiet = TRUE)
-    timing[3] = devTime$toc - devTime$tic
+    timing[3] = devTime$toc - devTime$tic + modelTime$toc - modelTime$tic
   }
 
   return(list(sVal, QD, timing))
