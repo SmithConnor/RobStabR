@@ -47,11 +47,12 @@ best_robust = function(RSSM,
 step_glmrob = function(data,
                        family,
                        anovaTest = "QDapprox",
-                       pVal = 0.05){
+                       pVal = 0.05,
+                       tcc){
   glmFull = robustbase::glmrob(y~.,
                                data = data,
                                family = family,
-                               control = robustbase::glmrobMqle.control(tcc = 2, maxit = 1000))
+                               control = robustbase::glmrobMqle.control(tcc = tcc, maxit = 1000))
   glmSummary = list()
   variables = names(data)
   p = ncol(data) - 1
@@ -75,7 +76,7 @@ step_glmrob = function(data,
       glmFit = robustbase::glmrob(formula,
                                   data = data,
                                   family = family,
-                                  control = robustbase::glmrobMqle.control(tcc = 2, maxit = 1000))
+                                  control = robustbase::glmrobMqle.control(tcc = tcc, maxit = 1000))
       mCount = mCount + 1
       anovaFit = anova(glmFit,
                        glmFull,

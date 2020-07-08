@@ -20,12 +20,13 @@ s_values = function(weights,
                     family,
                     coef,
                     wald,
-                    dev){
+                    dev,
+                    tcc){
   glmBoot = robustbase::glmrob(formula = y~.,
                                data = data,
                                subset = weights,
                                family = family,
-                               control = robustbase::glmrobMqle.control(tcc = 2, maxit = 1000))
+                               control = robustbase::glmrobMqle.control(tcc = tcc, maxit = 1000))
   glmBootSummary = base::summary(glmBoot)
   sVal = base::matrix(data = NA_integer_,
                       nrow = 3,
@@ -49,7 +50,7 @@ s_values = function(weights,
                                   data = data,
                                   subset = weights,
                                   family = family,
-                                  control = robustbase::glmrobMqle.control(tcc = 2, maxit = 1000))
+                                  control = robustbase::glmrobMqle.control(tcc = tcc, maxit = 1000))
       anovaDev = base::tryCatch(list(fit = anova(glmDev,
                                                  glmBoot,
                                                  test = "QD"),

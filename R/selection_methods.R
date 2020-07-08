@@ -22,7 +22,8 @@ bestglm_ic = function(data,
 #' @param family a description of the error distribution and link function to be used in the model.
 
 exhaustive_RDBC = function(data,
-                           family){
+                           family,
+                           tcc){
   n = base::nrow(data)
   p = base::ncol(data) - 1
   l = base::rep(list(0:1), p)
@@ -38,7 +39,7 @@ exhaustive_RDBC = function(data,
                   robustbase::glmrob,
                   data = data,
                   family = family,
-                  control = robustbase::glmrobMqle.control(tcc = 2, maxit = 1000))
+                  control = robustbase::glmrobMqle.control(tcc = tcc, maxit = 1000))
   anovaFit = list()
   for(i in 1:(length(glmFit)-1)){
     anovaFit[[i]] = anova(glmFit[[i]], glmFit[[2^p]], test = "QDapprox")$Test.Stat[2]

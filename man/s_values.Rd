@@ -4,7 +4,7 @@
 \alias{s_values}
 \title{Compute the subtractive lack-of-fit measures}
 \usage{
-s_values(weights, data, n, p, family, coef, wald, dev)
+s_values(weights, data, n, p, family, coef, wald, dev, tcc)
 }
 \arguments{
 \item{data}{a data frame containing the variables in the model.}

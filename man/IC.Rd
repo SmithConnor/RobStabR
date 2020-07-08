@@ -4,7 +4,7 @@
 \alias{IC}
 \title{Calculate the Information Criterion for a robust model}
 \usage{
-IC(vector, data, family)
+IC(vector, data, family, tcc)
 }
 \arguments{
 \item{vector}{a boolean vector indicating which variables to include.}

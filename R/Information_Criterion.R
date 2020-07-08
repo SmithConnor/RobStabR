@@ -7,17 +7,18 @@
 
 IC = function(vector,
               data,
-              family){
+              family,
+              tcc){
   glmFull = robustbase::glmrob(y~.,
                                data = data,
                                family = family,
-                               control = robustbase::glmrobMqle.control(tcc = 2, maxit = 1000))
+                               control = robustbase::glmrobMqle.control(tcc = tcc, maxit = 1000))
   model = base::paste0("y~", vector[1]) %>%
     stats::as.formula()
   glmFit = robustbase::glmrob(formula = model,
                               data = data,
                               family = family,
-                              control = robustbase::glmrobMqle.control(tcc = 2, maxit = 1000))
+                              control = robustbase::glmrobMqle.control(tcc = tcc, maxit = 1000))
   dev = anova(glmFit, glmFull, test = "QDapprox")$Test.Stat[2]
   ###
   n = nrow(data)
@@ -43,10 +44,12 @@ IC = function(vector,
 
 matrix_IC = function(matrix,
                      data,
-                     family){
+                     family,
+                     tcc){
   base::apply(X = matrix,
               MARGIN = 1,
               FUN = IC,
               data = data,
-              family = family)
+              family = family,
+              tcc = tcc)
 }

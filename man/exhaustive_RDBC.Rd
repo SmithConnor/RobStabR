@@ -4,7 +4,7 @@
 \alias{exhaustive_RDBC}
 \title{Exhaustive variable selection using the RDBC}
 \usage{
-exhaustive_RDBC(data, family)
+exhaustive_RDBC(data, family, tcc)
 }
 \arguments{
 \item{data}{a data frame containing the variables in the model.}

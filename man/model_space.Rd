@@ -15,7 +15,8 @@ model_space(
   coef = TRUE,
   wald = TRUE,
   dev = TRUE,
-  bootstraps = NA
+  bootstraps = NA,
+  tcc
 )
 }
 \arguments{

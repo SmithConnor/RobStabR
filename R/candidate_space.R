@@ -27,7 +27,8 @@ model_space = function(data,
                        coef = TRUE,
                        wald = TRUE,
                        dev = TRUE,
-                       bootstraps = NA){
+                       bootstraps = NA,
+                       tcc){
   # Parameters
   n = base::NROW(data)
   p = base::NCOL(data) - 1
@@ -55,7 +56,7 @@ model_space = function(data,
   glmFull = robustbase::glmrob(formula = y~.,
                                data = data,
                                family = family,
-                               control = robustbase::glmrobMqle.control(tcc = 2,
+                               control = robustbase::glmrobMqle.control(tcc = tcc,
                                                                         maxit = 1000))
   glmFullResid = stats::residuals(object = glmFull,
                                   type = resid)
@@ -85,7 +86,8 @@ model_space = function(data,
                         coef = coef,
                         wald = wald,
                         dev = dev,
-                        .parallel = FALSE)
+                        .parallel = FALSE,
+                        tcc = tcc)
   if(coef == TRUE){
     coefPath = lapply(X = sValues,
                       FUN = solution_path,
@@ -141,7 +143,8 @@ model_space = function(data,
   output = check_model_space(output,
                              k = k,
                              data = data,
-                             family = family)
+                             family = family,
+                             tcc = tcc)
   additional = countModels %>%
     base::names()
   addition = base::paste0(additional, "Count")
@@ -233,14 +236,16 @@ count_models = function(list,
 check_model_space = function(list,
                              k = 1,
                              data,
-                             family){
+                             family,
+                             tcc = tcc){
   list = base::lapply(X = list,
                       FUN = select_k,
                       k = k)
   output = base::lapply(X = list,
                         FUN = matrix_IC,
                         data = data,
-                        family = family)
+                        family = family,
+                        tcc = tcc)
   for( i in 1:length(output)){
     output[[i]] = plyr::ldply (output[[i]],
                                base::data.frame,

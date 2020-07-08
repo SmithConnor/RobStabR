@@ -4,7 +4,7 @@
 \alias{matrix_IC}
 \title{Calculate the Information Criterion for a robust model over a matrix}
 \usage{
-matrix_IC(matrix, data, family)
+matrix_IC(matrix, data, family, tcc)
 }
 \arguments{
 \item{matrix}{a boolean matrix indicating which variables to include on each row.}
