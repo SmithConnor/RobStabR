@@ -108,3 +108,93 @@ paper_results_simple = function(K = 100,
                  time = time)
   return(results)
 }
+
+############
+
+
+paper_results_complex = function(K = 100, startSeed = 1234, n, p, beta, family = poisson(link = "log"), sigma = 0.2, sigma2 = 0.5, outlier, outlier2, k = 1, tcc){
+  yFinal = base::matrix(data = NA_integer_,
+                        ncol = K,
+                        nrow = n)
+  seedSample = base::rep(x = NA_integer_,
+                         times = K)
+  poisSamp = base::list()
+  corMat = sigma^(toeplitz(1:p - 1))
+  for(i in 1:p){
+    for(j in 1:p){
+      if( i %% 2 == 1 & j - i == 1 | j %% 2 == 1 & i - j == 1){
+        corMat[i,j] = sigma2
+      }
+    }
+  }
+  set.seed(startSeed)
+  x = mvtnorm::rmvnorm(n = n,
+                       mean = base::rep(x = 0,
+                                        times = p),
+                       sigma = corMat)
+  eta = x %*% beta
+  mu = exp(eta)
+  RSSM = list()
+  stepGLM = list()
+  stepAIC = list()
+  stepBIC = list()
+  time = matrix(data = 0, nrow = K, ncol = 4)
+  for (i in 1:K){
+    runs = list()
+    seed = base::sample(x = 1:100000,
+                        size = 1)
+    seedSample[i] = seed
+    mu[which(n - rank(x[,8]) < 60)] = outlier
+    mu[which(n - rank(x[,16]) < 10)] = outlier2
+    y = stats::rpois(n = n, lambda = mu)
+    yFinal[,i] = y
+    data = data.frame(x,y)
+    tictoc::tic()
+    RSSM[[i]] = model_space(data = data,
+                            B = 100,
+                            m = n/2,
+                            nStrata = 8,
+                            family = family,
+                            k = k,
+                            resid = "pearson",
+                            coef = TRUE,
+                            wald = TRUE,
+                            dev = FALSE,
+                            tcc = 2)
+    t1 = tictoc::toc(quiet = TRUE)
+    time[i,1] = t1$toc - t1$tic
+    runs$RSSM = RSSM[[i]]
+    tictoc::tic()
+    stepGLM[[i]] = step_glmrob(data = data,
+                               family = family,
+                               tcc = 2)
+    t2 = tictoc::toc(quiet = TRUE)
+    time[i,2] = t2$toc - t2$tic
+    runs$stepQD = stepGLM[[i]]
+    tictoc::tic()
+    stepAIC[[i]] = step_ic(data = data,
+                           family = family,
+                           k = 2)
+    t3 = tictoc::toc(quiet = TRUE)
+    time[i,3] = t3$toc - t3$tic
+    runs$stepAIC = stepAIC[[i]]
+    tictoc::tic()
+    stepBIC[[i]] = step_ic(data = data,
+                           family = family,
+                           k = log(n))
+    t4 = tictoc::toc(quiet = TRUE)
+    time[i,4] = t4$toc - t4$tic
+    runs$stepBIC = stepBIC[[i]]
+    runs$time = time[i,]
+  }
+  results = list(RSSM = RSSM,
+                 stepQD = stepGLM,
+                 stepAIC = stepAIC,
+                 stepBIC = stepBIC,
+                 x = x,
+                 y  = y,
+                 seed = seedSample,
+                 beta = beta,
+                 time = time)
+  return(results)
+}
