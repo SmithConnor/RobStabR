@@ -20,7 +20,7 @@ model_space = function(data,
                        B,
                        m,
                        nStrata = 8,
-                       family = binomial(link = "logit"),
+                       family,
                        k = 1,
                        resid = "pearson",
                        coef = TRUE,
@@ -185,7 +185,7 @@ select_k = function(df,
   df$Count = df$Count %>%
     as.numeric()
   df %>%
-    filter(Count >= k)
+    dplyr::filter(Count >= k)
 }
 
 #####

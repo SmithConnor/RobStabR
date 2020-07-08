@@ -60,7 +60,7 @@ s_values = function(weights,
 
       )
 
-      if(anovaDev == 'NA'){
+      if(base::all(anovaDev == 'NA')){
         anovaDev = list(fit = anova(glmDev,
                                     glmBoot,
                                     test = "QDapprox"),

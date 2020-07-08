@@ -33,4 +33,5 @@ m = n/2
 RobStabExamp = test = model_space(data = data,
                                   B = B,
                                   m = m,
-                                  family = family)
+                                  family = family,
+                                  nStrata = 5)

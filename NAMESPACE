@@ -2,4 +2,5 @@
 
 export(expit)
 export(logit)
+export(s_values)
 importFrom(magrittr,"%>%")

@@ -6,6 +6,9 @@
 \usage{
 s_values(weights, data, n, p, family, coef, wald, dev)
 }
+\arguments{
+\item{data}{a data frame containing the variables in the model.}
+}
 \description{
 Compute the subtractive lack-of-fit measures
 }

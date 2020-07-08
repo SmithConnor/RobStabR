@@ -9,13 +9,16 @@ model_space(
   B,
   m,
   nStrata = 8,
-  family = binomial(link = "logit"),
+  family,
   k = 1,
   resid = "pearson",
   coef = TRUE,
   wald = TRUE,
   dev = TRUE
 )
+}
+\arguments{
+\item{data}{a data frame containing the variables in the model.}
 }
 \description{
 Find the candidate model space after B bootstraps
