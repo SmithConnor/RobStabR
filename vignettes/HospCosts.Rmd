@@ -21,7 +21,9 @@ data = hospcosts %>%
   dplyr::select(-id, - costs, -los)
 ```
 
-```{r}
+```{r fitRobStab}
+resamplePaper = NA
+
 hospRobStab = model_space(data = data,
                           B = 100,
                           m = 50,
@@ -29,4 +31,15 @@ hospRobStab = model_space(data = data,
                           family = Gamma(link = log))
 ```
 
+```{r sVIP}
+hospMPP = sMPP(robStab = hospRobStab)
+hospMPP$plots$dev
+
+```
+
+```{r sMPP}
+hospVIP = sVIP(robStab = hospRobStab)
+hospVIP$plots$dev
+
+```
 

@@ -3,4 +3,5 @@
 export(expit)
 export(logit)
 export(s_values)
+importFrom(ggplot2,ggplot)
 importFrom(magrittr,"%>%")

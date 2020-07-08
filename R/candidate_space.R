@@ -161,6 +161,7 @@ model_space = function(data,
   base::rownames(bootstraps) = base::paste0("B",
                                             1:B)
   output$bootsrap = bootstraps
+  output$varNames = varNames
   return(output)
 }
 
