@@ -1,0 +1,8 @@
+pandoc: '2.6'
+pkgdown: 1.5.1
+pkgdown_sha: ~
+articles:
+  HospCosts: HospCosts.html
+  RobStabSim: RobStabSim.html
+last_built: 2020-07-13T12:07Z
+
