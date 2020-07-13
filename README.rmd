@@ -15,3 +15,41 @@ library(devtools)
 devtools::install_github("SmithConnor/RobStabR")
 ```
 
+# An example
+We have data with 64 observations and 8 variables, and we desire to perform variables selection using the poisson model.
+We induce outliers in the 8 observations where X8 is the largest by setting lambda = 5.
+
+```{r, eval = TRUE}
+library(RobStabR)
+
+set.seed(15)
+n = 64
+p = 8
+beta = c(1, -1, 1, 
+         rep(0, p - 3))
+x = matrix(rnorm(n*p), 
+           nrow = n,
+           ncol = p)
+colnames(x) = paste0("X", 
+                     1:p)
+lambda = exp(x %*% beta)
+lambda[which(rank(x[,8]) <= 8)] = 5 # Induce outliers
+y = rpois(n = n, 
+          lambda = lambda)
+data = data.frame(x, y)
+robStabResult = RobStabR::model_space(data = data,
+                                      B = 100,
+                                      m = n/2,
+                                      family = poisson(link = "log"),
+                                      tcc = 2)
+
+robStabResult$dev
+```
+
+The best model selected byt the RDBC when the penalty is P2 is:
+
+```{r, eval = TRUE}
+robStabResult$dev[which.min(robStabResult$dev$P2),]
+```
+
+
