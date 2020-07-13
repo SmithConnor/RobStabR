@@ -30,7 +30,7 @@ data = hospcosts %>%
 ```{r fitRobStab}
 paperRobStab = readRDS("./../manuscript/hosp_robust_RobStab.rds") # Analysis done for the manuscript
 
-resamplePaper = paperRobStab$bootstraps
+resamplePaper = paperRobStab$bootsrap
 
 hospRobStab = model_space(data = data,
                           B = 100,
@@ -39,28 +39,23 @@ hospRobStab = model_space(data = data,
                           family = Gamma(link = log),
                           tcc = 1.5,
                           bootstraps = resamplePaper)
-
-
-tic()
-hospRobStab = model_space(data = data,
-                          B = 100,
-                          m = 50,
-                          nStrata = 5,
-                          family = Gamma(link = log),
-                          tcc = 1.5)
-b = toc()
-b$toc-b$tic
 ```
 
 ```{r rsVIP}
 hospMPP = sMPP(robStab = hospRobStab)
 hospMPP$plots$dev
 
+ggplot2::ggsave("rsMPP.jpg",
+                dpi = 300)
+
 ```
 
 ```{r rsMPP}
 hospVIP = sVIP(robStab = hospRobStab)
 hospVIP$plots$dev
+
+ggplot2::ggsave("rsVIP.jpg",
+                dpi = 300)
 
 ```
 
@@ -70,7 +65,7 @@ hospVIP$plots$dev
 ```{r fitRobStabNon}
 paperRobStab2 = readRDS("./../manuscript/hosp_RobStab.rds") # Analysis done for the manuscript
 
-resamplePaper2 = paperRobStab2$bootstraps
+resamplePaper2 = paperRobStab2$bootsrap
 
 hospRobStabNon = model_space_non(data = data,
                           B = 100,
@@ -84,11 +79,17 @@ hospRobStabNon = model_space_non(data = data,
 hospMPP = sMPP(robStab = hospRobStabNon)
 hospMPP$plots$dev
 
+ggplot2::ggsave("sMPP.jpg",
+                dpi = 300)
+
 ```
 
 ```{r sMPP}
 hospVIP = sVIP(robStab = hospRobStabNon)
 hospVIP$plots$dev
+
+ggplot2::ggsave("sVIP.jpg",
+                dpi = 300)
 
 ```
 

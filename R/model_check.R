@@ -1,3 +1,5 @@
+#' @export
+
 model_check = function(model,
                        true){
   vector = rep(NA, times = 3)
@@ -17,7 +19,9 @@ model_check = function(model,
 
 #####
 
-model_check_Robstab = function(list,
+#' @export
+
+model_check_RobStab = function(list,
                                true){
   matrix = matrix(data = NA, ncol = 3, nrow = 3)
   colnames(matrix) = c("wrong", "true", "correct")

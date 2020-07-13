@@ -19,17 +19,17 @@ best_model = function(df,
 
 best_robust = function(RSSM,
                        penalty){
-  coefBest = RSSM$coefSpace[,penalty] %>% base::which.min(.)
-  coefOut = RSSM$coefSpace$model[coefBest] %>%
+  coefBest = RSSM$coef[,penalty] %>% base::which.min(.)
+  coefOut = RSSM$coef$model[coefBest] %>%
     as.character() %>%
     base::strsplit(., "\\+")
   coefOut = coefOut[[1]][-1]
-  waldBest = RSSM$waldSpace[,penalty] %>% base::which.min(.)
-  waldOut = RSSM$waldSpace$model[waldBest] %>% as.character() %>%
+  waldBest = RSSM$wald[,penalty] %>% base::which.min(.)
+  waldOut = RSSM$wald$model[waldBest] %>% as.character() %>%
     base::strsplit(., "\\+")
   waldOut = waldOut[[1]][-1]
-  devBest = RSSM$devSpace[,penalty] %>% base::which.min(.)
-  devOut = RSSM$devSpace$model[devBest] %>% as.character() %>%
+  devBest = RSSM$dev[,penalty] %>% base::which.min(.)
+  devOut = RSSM$dev$model[devBest] %>% as.character() %>%
     base::strsplit(., "\\+")
   devOut = devOut[[1]][-1]
   return(list(coef = coefOut, wald = waldOut, dev = devOut))

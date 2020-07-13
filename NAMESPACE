@@ -2,6 +2,8 @@
 
 export(expit)
 export(logit)
+export(model_check)
+export(model_check_RobStab)
 export(model_space)
 export(model_space_non)
 export(sMPP)
