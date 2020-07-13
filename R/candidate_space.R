@@ -11,6 +11,7 @@
 #' @param wald
 #' @param dev
 #' @param bootstraps
+#' @param tcc the tuning constant c in Huber's psi-function.
 #' @importFrom magrittr %>%
 #' @export
 #'
