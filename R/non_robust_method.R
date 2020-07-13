@@ -210,7 +210,7 @@ IC_non = function(vector, data, family){
                        family = family)
   model = base::paste0("y~", vector[1]) %>%
     stats::as.formula(.)
-  glmFit = stas::glm(formula = model,
+  glmFit = stats::glm(formula = model,
                      data = data,
                      family = family)
   dev = anova(glmFit, glmFull, test = "Chisq")$Deviance[2]

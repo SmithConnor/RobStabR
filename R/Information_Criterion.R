@@ -19,7 +19,7 @@ IC = function(vector,
                               data = data,
                               family = family,
                               control = robustbase::glmrobMqle.control(tcc = tcc, maxit = 1000))
-  dev = anova(glmFit, glmFull, test = "QDapprox")$Test.Stat[2]
+  dev = stats::anova(glmFit, glmFull, test = "QDapprox")$Test.Stat[2]
   ###
   n = nrow(data)
   p = base::length(glmFit$coefficients) - 1

@@ -1,16 +1,29 @@
 Package: RobStabR
-Title: What the Package Does (One Line, Title Case)
+Title: Robust model seleciton framework for Generalised Linear Models.
 Version: 0.0.0.9000
 Authors@R: 
-    person(given = "First",
-           family = "Last",
+    person(given = "Connor",
+           family = "Smith",
            role = c("aut", "cre"),
-           email = "first.last@example.com",
-           comment = c(ORCID = "YOUR-ORCID-ID"))
+           email = "connor.smith@sydney.edu.au")
 Description: What the package does (one paragraph).
 License: `use_mit_license()`, `use_gpl3_license()` or friends to
     pick a license
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
+Imports: 
+  formula.tools,
+  ggplot2,
+  magrittr,
+  reshape,
+  MASS,
+  bestglm,
+  dplyr,
+  janitor,
+  mvtnorm,
+  plyr,
+  reshape2,
+  robustbase,
+  tictoc
 RoxygenNote: 7.1.1

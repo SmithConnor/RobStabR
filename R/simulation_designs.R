@@ -307,50 +307,50 @@ paper_results_medium = function(K = 100, seedStart = 1234, n, p, beta, family = 
 }
 
 
-currentRobStab = example_3
-beta = currentRobStab$beta
-trueModel = paste0("X",which(beta != 0))
-stepGLMRes = lapply(currentRobStab$stepQD, model_check, true = trueModel) %>%
-  unlist() %>%
-  matrix(., ncol = 3, byrow = TRUE)
-stepAICRes = lapply(currentRobStab$stepAIC, model_check, true = trueModel) %>%
-  unlist() %>%
-  matrix(., ncol = 3, byrow = TRUE)
-stepBICRes = lapply(currentRobStab$stepBIC, model_check, true = trueModel) %>%
-  unlist() %>%
-  matrix(., ncol = 3, byrow = TRUE)
-bestAICRes = lapply(currentRobStab$bestAIC, model_check, true = trueModel) %>%
-  unlist() %>%
-  matrix(., ncol = 3, byrow = TRUE)
-bestBICRes = lapply(currentRobStab$bestBIC, model_check, true = trueModel) %>%
-  unlist() %>%
-  matrix(., ncol = 3, byrow = TRUE)
-exhaustRDBCRes = lapply(currentRobStab$exhaustRDBC, model_check, true = trueModel) %>%
-  unlist() %>%
-  matrix(., ncol = 3, byrow = TRUE)
-RobStabP1 = lapply(currentRobStab$RobStab, best_robust, penalty = "P1") %>%
-  lapply(., model_check_RobStab, true = trueModel)
-matrixP1 = matrix(data = 0, ncol = 3, nrow = 3)
-colnames(matrixP1) = c("wrong", "true", "correct")
-rownames(matrixP1) = c("coef", "wald", "dev")
-for( i in 1:K){
-  matrixP1 = matrixP1 + RobStabP1[[i]]
-}
-RobStabP2 = lapply(currentRobStab$RobStab, best_robust, penalty = "P2") %>%
-  lapply(., model_check_RobStab, true = trueModel)
-matrixP2 = matrix(data = 0, ncol = 3, nrow = 3)
-colnames(matrixP2) = c("wrong", "true", "correct")
-rownames(matrixP2) = c("coef", "wald", "dev")
-for( i in 1:K){
-  matrixP2 = matrixP2 + RobStabP2[[i]]
-}
-
-matrixP1
-matrixP2
-stepGLMRes %>% apply(.,2,sum)
-stepAICRes %>% apply(.,2,sum)
-stepBICRes %>% apply(.,2,sum)
-bestAICRes %>% apply(.,2,sum)
-bestBICRes %>% apply(.,2,sum)
-exhaustRDBCRes %>% apply(.,2,sum)
+# currentRobStab = example_3
+# beta = currentRobStab$beta
+# trueModel = paste0("X",which(beta != 0))
+# stepGLMRes = lapply(currentRobStab$stepQD, model_check, true = trueModel) %>%
+#   unlist() %>%
+#   matrix(., ncol = 3, byrow = TRUE)
+# stepAICRes = lapply(currentRobStab$stepAIC, model_check, true = trueModel) %>%
+#   unlist() %>%
+#   matrix(., ncol = 3, byrow = TRUE)
+# stepBICRes = lapply(currentRobStab$stepBIC, model_check, true = trueModel) %>%
+#   unlist() %>%
+#   matrix(., ncol = 3, byrow = TRUE)
+# bestAICRes = lapply(currentRobStab$bestAIC, model_check, true = trueModel) %>%
+#   unlist() %>%
+#   matrix(., ncol = 3, byrow = TRUE)
+# bestBICRes = lapply(currentRobStab$bestBIC, model_check, true = trueModel) %>%
+#   unlist() %>%
+#   matrix(., ncol = 3, byrow = TRUE)
+# exhaustRDBCRes = lapply(currentRobStab$exhaustRDBC, model_check, true = trueModel) %>%
+#   unlist() %>%
+#   matrix(., ncol = 3, byrow = TRUE)
+# RobStabP1 = lapply(currentRobStab$RobStab, best_robust, penalty = "P1") %>%
+#   lapply(., model_check_RobStab, true = trueModel)
+# matrixP1 = matrix(data = 0, ncol = 3, nrow = 3)
+# colnames(matrixP1) = c("wrong", "true", "correct")
+# rownames(matrixP1) = c("coef", "wald", "dev")
+# for( i in 1:K){
+#   matrixP1 = matrixP1 + RobStabP1[[i]]
+# }
+# RobStabP2 = lapply(currentRobStab$RobStab, best_robust, penalty = "P2") %>%
+#   lapply(., model_check_RobStab, true = trueModel)
+# matrixP2 = matrix(data = 0, ncol = 3, nrow = 3)
+# colnames(matrixP2) = c("wrong", "true", "correct")
+# rownames(matrixP2) = c("coef", "wald", "dev")
+# for( i in 1:K){
+#   matrixP2 = matrixP2 + RobStabP2[[i]]
+# }
 #
+# matrixP1
+# matrixP2
+# stepGLMRes %>% apply(.,2,sum)
+# stepAICRes %>% apply(.,2,sum)
+# stepBICRes %>% apply(.,2,sum)
+# bestAICRes %>% apply(.,2,sum)
+# bestBICRes %>% apply(.,2,sum)
+# exhaustRDBCRes %>% apply(.,2,sum)
+# #
