@@ -8,6 +8,7 @@
 #' @param coef A TRUE/FALSE value to indicate whether to evaluate RobStab using regression coefficients.
 #' @param wald A TRUE/FALSE value to indicate whether to evaluate RobStab using wald statisitcs.
 #' @param dev A TRUE/FALSE value to indicate whether to evaluate RobStab using deviances.
+#' @param tcc the tuning constant c in Huber's psi-function.
 #' @importFrom magrittr %>%
 #' @export
 
@@ -86,8 +87,6 @@ s_values = function(weights,
 }
 
 #####
-
-#' Compute the subtractive lack-of-fit measures
 
 solution_path = function(list,
                          row){

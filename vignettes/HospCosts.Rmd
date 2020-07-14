@@ -1,21 +1,27 @@
-<!--
-%\VignetteEngine{knitr}
-%\VignetteIndexEntry{Hospital Costs Analysis}
-%\VignetteDepends{ggplot2, RobStabR}
--->
+---
+author: "Connor Smith"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteEngine{knitr::knitr}
+  %\VignetteIndexEntry{""}
+  %\usepackage[UTF-8]{inputenc}
+---
 
 # Hospitcal Costs Analysis
 
-```{r packages}
+Load required packages.
+```{r warning=FALSE, message=FALSE}
 library("robmixglm")
 library("magrittr")
 library("dplyr")
 
 library(devtools)
-#install_github("SmithConnor/RobStabR")
+# install_github("SmithConnor/RobStabR")
 library("RobStabR")
 ```
 
+Load Hospital costs data.
 
 ```{r datawrangling}
 utils::data("hospcosts", package ="robmixglm")
@@ -26,6 +32,8 @@ data = hospcosts %>%
 ```
 
 ## Robust Plots
+
+Repeat the analysis completed in the manuscript using the exact same bootstraps with robust regression.
 
 ```{r fitRobStab}
 paperRobStab = readRDS("./../manuscript/hosp_robust_RobStab.rds") # Analysis done for the manuscript
@@ -41,26 +49,23 @@ hospRobStab = model_space(data = data,
                           bootstraps = resamplePaper)
 ```
 
-```{r rsVIP}
+Construct the robust subtractive Variable Inclusion Plot.
+
+```{r rsVIP, fig.height = 4, fig.width = 7, fig.align = "center"}
 hospMPP = sMPP(robStab = hospRobStab)
 hospMPP$plots$dev
-
-ggplot2::ggsave("rsMPP.jpg",
-                dpi = 300)
-
 ```
 
-```{r rsMPP}
+Construct the robust subtractive Mosaic Probability Plot.
+
+```{r rsMPP, fig.height = 4, fig.width = 7, fig.align = "center"}
 hospVIP = sVIP(robStab = hospRobStab)
 hospVIP$plots$dev
-
-ggplot2::ggsave("rsVIP.jpg",
-                dpi = 300)
-
 ```
 
 ## Non-Robust Plots
 
+Repeat the analysis completed in the manuscript using the exact same bootstraps with non-robust regression.
 
 ```{r fitRobStabNon}
 paperRobStab2 = readRDS("./../manuscript/hosp_RobStab.rds") # Analysis done for the manuscript
@@ -75,21 +80,17 @@ hospRobStabNon = model_space_non(data = data,
                           bootstraps = resamplePaper2)
 ```
 
-```{r sVIP}
+Construct the non-robust subtractive Variable Inclusion Plot.
+
+```{r sVIP, fig.height = 4, fig.width = 7, fig.align = "center"}
 hospMPP = sMPP(robStab = hospRobStabNon)
 hospMPP$plots$dev
-
-ggplot2::ggsave("sMPP.jpg",
-                dpi = 300)
-
 ```
 
-```{r sMPP}
+Construct the non-robust subtractive Mosaic Probability Plot.
+
+```{r sMPP, fig.height = 4, fig.width = 7, fig.align = "center"}
 hospVIP = sVIP(robStab = hospRobStabNon)
 hospVIP$plots$dev
-
-ggplot2::ggsave("sVIP.jpg",
-                dpi = 300)
-
 ```
 

@@ -1,3 +1,6 @@
+#' A function to check whether the selected model is a correct or wrong model.
+#' @param model a vector containing which variables were selected.
+#' @param true a vector containing all the variables in the true model.
 #' @export
 
 model_check = function(model,
@@ -19,6 +22,9 @@ model_check = function(model,
 
 #####
 
+#' A function to check whether the selected model is a correct or wrong model for the RobStab method.
+#' @param list a list containing vectors for each subtractive lack-of-fit choice and which variables were selected.
+#' @param true a vector containing all the variables in the true model.
 #' @export
 
 model_check_RobStab = function(list,

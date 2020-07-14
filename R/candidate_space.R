@@ -204,8 +204,6 @@ model_space = function(data,
 
 #####
 
-#' Reduced model space
-#'
 #' @importFrom magrittr %>%
 
 

@@ -14,6 +14,8 @@ step_glmrob(data, family, anovaTest = "QDapprox", pVal = 0.05, tcc)
 \item{anovaTest}{a character string specifying the test statistic to be used. (Partially) matching one of "Wald", "QD" or "QDapprox".}
 
 \item{pVal}{a number identifying the p-value threshold for the stepwise selection.}
+
+\item{tcc}{the tuning constant c in Huber's psi-function.}
 }
 \description{
 Stepwise selection using Robust Quasi-deviance.

@@ -1,9 +1,0 @@
-<!--
-%\VignetteEngine{knitr}
-%\VignetteIndexEntry{RobStab Paper Simulations}
-%\VignetteDepends{ggplot2, RobStabR}
--->
-
-# RobStab Paper Simulations
-
-

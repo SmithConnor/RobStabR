@@ -38,6 +38,7 @@ best_robust = function(RSSM,
 #' @param family a description of the error distribution and link function to be used in the model.
 #' @param anovaTest a character string specifying the test statistic to be used. (Partially) matching one of "Wald", "QD" or "QDapprox".
 #' @param pVal a number identifying the p-value threshold for the stepwise selection.
+#' @param tcc the tuning constant c in Huber's psi-function.
 #' @importFrom magrittr %>%
 #' @import formula.tools
 

@@ -22,6 +22,8 @@ s_values(weights, data, n, p, family, coef, wald, dev, tcc)
 \item{wald}{A TRUE/FALSE value to indicate whether to evaluate RobStab using wald statisitcs.}
 
 \item{dev}{A TRUE/FALSE value to indicate whether to evaluate RobStab using deviances.}
+
+\item{tcc}{the tuning constant c in Huber's psi-function.}
 }
 \description{
 Compute the subtractive lack-of-fit measures
