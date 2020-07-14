@@ -1,12 +1,12 @@
 Package: RobStabR
-Title: Robust model seleciton framework for Generalised Linear Models.
+Title: Robust model selection framework for Generalised Linear Models.
 Version: 0.0.0.9000
 Authors@R: 
     person(given = "Connor",
            family = "Smith",
            role = c("aut", "cre"),
            email = "connor.smith@sydney.edu.au")
-Description: What the package does (one paragraph).
+Description: A robust variable selection framework for GLM's that uses subtractive lack-of-fit measures. The framework returns a final optimal model.
 License: `use_gpl3_license()`
 Encoding: UTF-8
 LazyData: true
