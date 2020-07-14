@@ -1,5 +1,6 @@
 #' sMPP Plot
 #'
+#' @param robStab RobStabR object.
 #' @importFrom magrittr %>%
 #' @importFrom ggplot2 ggplot
 #' @export
@@ -82,6 +83,8 @@ sMPPplot = function(hMat){
 
 ###
 
+#' sVIP Plot
+#' @param robStab RobStabR object.
 #' @export
 #'
 

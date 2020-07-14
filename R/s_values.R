@@ -1,17 +1,16 @@
 #' Compute the subtractive lack-of-fit measures
 #'
-#' @param weights
+#' @param weights a vector contains=ing a subset of observations.
 #' @param data a data frame containing the variables in the model.
-#' @param n
-#' @param p
-#' @param family
-#' @param coef
-#' @param wald
-#' @param dev
+#' @param n Number of observations.
+#' @param p Number of variables.
+#' @param family a description of the error distribution and link function to be used in the model.
+#' @param coef A TRUE/FALSE value to indicate whether to evaluate RobStab using regression coefficients.
+#' @param wald A TRUE/FALSE value to indicate whether to evaluate RobStab using wald statisitcs.
+#' @param dev A TRUE/FALSE value to indicate whether to evaluate RobStab using deviances.
 #' @importFrom magrittr %>%
 #' @export
-#'
-#' @example
+
 
 s_values = function(weights,
                     data,
@@ -89,11 +88,6 @@ s_values = function(weights,
 #####
 
 #' Compute the subtractive lack-of-fit measures
-#'
-#' @param list
-#' @param row
-#'
-#' @example
 
 solution_path = function(list,
                          row){

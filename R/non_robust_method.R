@@ -1,17 +1,6 @@
-#'
-#' @param data
-#' @param B
-#' @param m
-#' @param nStrata
-#' @param family
-#' @param k
-#' @param resid
-#' @param coef
-#' @param wald
-#' @param dev
+
 #' @export
-#'
-#' @example
+
 
 
 
@@ -146,17 +135,6 @@ model_space_non = function(data,
 
 ###############
 
-#'
-#' @param weights
-#' @param data
-#' @param n
-#' @param p
-#' @param family
-#' @param coef
-#' @param wald
-#' @param dev
-#'
-#' @example
 
 s_values_non = function(weights,
                     data,

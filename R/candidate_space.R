@@ -1,21 +1,20 @@
 #' Find the candidate model space after B bootstraps
 #'
 #' @param data a data frame containing the variables in the model.
-#' @param B
-#' @param m
-#' @param nStrata
-#' @param family
-#' @param k
-#' @param resid
-#' @param coef
-#' @param wald
-#' @param dev
-#' @param bootstraps
+#' @param B The number of bootstrap re-samples to run.
+#' @param m The m used for the m-out-of-n boostrap.
+#' @param nStrata Number of strat used for the stratified re-sampling.
+#' @param family a description of the error distribution and link function to be used in the model.
+#' @param k The minimum number of times a mondel must be identified through resampling to be included in the rediced candidate space.
+#' @param resid the type of residuals to be used for the stratified re-sampling.
+#' @param coef A TRUE/FALSE value to indicate whether to evaluate RobStab using regression coefficients.
+#' @param wald A TRUE/FALSE value to indicate whether to evaluate RobStab using wald statisitcs.
+#' @param dev A TRUE/FALSE value to indicate whether to evaluate RobStab using deviances.
+#' @param bootstraps Recreact results using previously used resamples.
 #' @param tcc the tuning constant c in Huber's psi-function.
 #' @importFrom magrittr %>%
 #' @export
 #'
-#' @example
 
 
 
@@ -207,11 +206,8 @@ model_space = function(data,
 
 #' Reduced model space
 #'
-#' @param list
-#' @param vector
 #' @importFrom magrittr %>%
-#'
-#' @example
+
 
 
 reduced_space = function(list,
@@ -227,8 +223,6 @@ reduced_space = function(list,
 
 #####
 
-#' @param df
-#' @param k
 #' @importFrom magrittr %>%
 
 select_k = function(df,
@@ -241,7 +235,6 @@ select_k = function(df,
 
 #####
 
-#' @param list
 #' @importFrom magrittr %>%
 
 counting = function(list){
@@ -265,8 +258,6 @@ count_models = function(list,
 }
 
 #####
-
-#' @param data a data frame containing the variables in the model.
 
 check_model_space = function(list,
                              k = 1,

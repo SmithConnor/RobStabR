@@ -1,5 +1,3 @@
-#' @param df
-#' @param criteria
 #' @importFrom magrittr %>%
 
 best_model = function(df,
@@ -13,8 +11,6 @@ best_model = function(df,
 
 #####
 
-#' @param RSSM
-#' @param penalty
 #' @importFrom magrittr %>%
 
 best_robust = function(RSSM,
@@ -37,11 +33,11 @@ best_robust = function(RSSM,
 
 #####
 
-#'
+#' Stepwise selection using Robust Quasi-deviance.
 #' @param data a data frame containing the variables in the model.
 #' @param family a description of the error distribution and link function to be used in the model.
-#' @param anovaTest
-#' @param pVal
+#' @param anovaTest a character string specifying the test statistic to be used. (Partially) matching one of "Wald", "QD" or "QDapprox".
+#' @param pVal a number identifying the p-value threshold for the stepwise selection.
 #' @importFrom magrittr %>%
 #' @import formula.tools
 
@@ -107,10 +103,10 @@ step_glmrob = function(data,
 
 #####
 
-#'
+#' Stepwise model selection using MLE based methods.
 #' @param data a data frame containing the variables in the model.
 #' @param family a description of the error distribution and link function to be used in the model.
-#' @param k
+#' @param k the multiple of the number of degrees of freedom used for the penalty. Only k = 2 gives the genuine AIC: k = log(n) is sometimes referred to as BIC or SBC.
 #' @importFrom magrittr %>%
 
 step_ic = function(data,

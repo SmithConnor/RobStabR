@@ -6,9 +6,6 @@
 \usage{
 solution_path(list, row)
 }
-\arguments{
-\item{row}{}
-}
 \description{
 Compute the subtractive lack-of-fit measures
 }

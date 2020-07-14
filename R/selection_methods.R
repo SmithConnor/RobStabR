@@ -20,6 +20,7 @@ bestglm_ic = function(data,
 #'
 #' @param data a data frame containing the variables in the model.
 #' @param family a description of the error distribution and link function to be used in the model.
+#' @param tcc the tuning constant c in Huber's psi-function.
 
 exhaustive_RDBC = function(data,
                            family,
