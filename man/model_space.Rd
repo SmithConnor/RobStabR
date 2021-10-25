@@ -16,6 +16,10 @@ model_space(
   wald = TRUE,
   dev = TRUE,
   bootstraps = NA,
+  center = TRUE,
+  centerFun = median,
+  scale = TRUE,
+  scaleFun = mad,
   tcc
 )
 }
@@ -42,7 +46,15 @@ model_space(
 
 \item{bootstraps}{Recreact results using previously used resamples.}
 
+\item{centerFun}{a function to compute an estimate of the center of a variable. Defualt is the median.}
+
+\item{scale}{A TRUE/FALSE value to indicate whether to scale the design matrix.}
+
 \item{tcc}{the tuning constant c in Huber's psi-function.}
+
+\item{centre}{A TRUE/FALSE value to indicate whether to center the design matrix.}
+
+\item{a}{function to compute an estimate of the scale of a variable. Default is the MAD.}
 }
 \description{
 Find the candidate model space after B bootstraps

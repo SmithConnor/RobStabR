@@ -43,14 +43,16 @@ model_space = function(data,
   nMethods = coef + wald + dev
   # Centering and Scaling
   if(center){
-    data[,-(p+1)] = apply(X = data[,-(p+1)],
-                          MARGIN = 2,
-                          FUN = centerFun)
+    data[,-(p+1)] = data[,-(p+1)] - matrix(apply(X = data[,-(p+1)], MARGIN = 2, FUN = centerFun),
+                                           nrow = n,
+                                           ncol = p,
+                                           byrow = TRUE)
   }
   if(scale){
-    data[,-(p+1)] = apply(X = data[,-(p+1)],
-                          MARGIN = 2,
-                          FUN = scaleFun)
+    data[,-(p+1)] = data[,-(p+1)] - matrix(apply(X = data[,-(p+1)], MARGIN = 2, FUN = scaleFun),
+                                           nrow = n,
+                                           ncol = p,
+                                           byrow = TRUE)
   }
   # Variables
   devQD = base::matrix(0, nrow = B, ncol = p)
