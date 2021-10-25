@@ -13,9 +13,9 @@
 #' @param bootstraps Recreact results using previously used resamples.
 #' @param tcc the tuning constant c in Huber's psi-function.
 #' @param centre A TRUE/FALSE value to indicate whether to center the design matrix.
-#' @param centerFun a function to compute an estimate of the center of a variable.
+#' @param centerFun a function to compute an estimate of the center of a variable. Defualt is the median.
 #' @param scale A TRUE/FALSE value to indicate whether to scale the design matrix.
-#' @param a function to compute an estimate of the scale of a variable.
+#' @param a function to compute an estimate of the scale of a variable. Default is the MAD.
 #' @importFrom magrittr %>%
 #' @export
 #'
