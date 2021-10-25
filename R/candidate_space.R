@@ -12,6 +12,10 @@
 #' @param dev A TRUE/FALSE value to indicate whether to evaluate RobStab using deviances.
 #' @param bootstraps Recreact results using previously used resamples.
 #' @param tcc the tuning constant c in Huber's psi-function.
+#' @param centre A TRUE/FALSE value to indicate whether to center the design matrix.
+#' @param centerFun a function to compute an estimate of the center of a variable.
+#' @param scale A TRUE/FALSE value to indicate whether to scale the design matrix.
+#' @param a function to compute an estimate of the scale of a variable.
 #' @importFrom magrittr %>%
 #' @export
 #'
@@ -29,12 +33,27 @@ model_space = function(data,
                        wald = TRUE,
                        dev = TRUE,
                        bootstraps = NA,
+                       center = TRUE,
+                       centerFun = median,
+                       scale = TRUE,
+                       scaleFun = MAD,
                        tcc){
   tictoc::tic()
   # Parameters
   n = base::NROW(data)
   p = base::NCOL(data) - 1
   nMethods = coef + wald + dev
+  # Centering and Scaling
+  if(center){
+    data[,-(p+1)] = apply(X = data[,-(p+1)],
+                          MARGIN = 2,
+                          FUN = centerFun)
+  }
+  if(scale){
+    data[,-(p+1)] = apply(X = data[,-(p+1)],
+                          MARGIN = 2,
+                          FUN = scaleFun)
+  }
   # Variables
   devQD = base::matrix(0, nrow = B, ncol = p)
   bootstrapModels = base::rep(x = list(NA),
