@@ -20,8 +20,6 @@
 #' @export
 #'
 
-
-
 model_space = function(data,
                        B,
                        m,
@@ -36,7 +34,7 @@ model_space = function(data,
                        center = TRUE,
                        centerFun = median,
                        scale = TRUE,
-                       scaleFun = MAD,
+                       scaleFun = mad,
                        tcc){
   tictoc::tic()
   # Parameters
